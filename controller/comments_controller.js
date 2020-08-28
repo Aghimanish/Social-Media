@@ -1,3 +1,6 @@
+const Comment = require('../models/comment');
+const Post = require('../models/post');
+
 module.exports.create = async function(req, res){
 
     try{
@@ -28,7 +31,7 @@ module.exports.create = async function(req, res){
 
             req.flash('success', 'Comment published!');
 
-            res.redirect('/');
+            return res.redirect('/');
         }
     }catch(err){
         req.flash('error', err);
@@ -42,8 +45,9 @@ module.exports.destroy = async function(req, res){
 
     try{
         let comment = await Comment.findById(req.params.id);
-
-        if (comment.user == req.user.id){
+        
+        if (comment.user == req.user.id || req.user.id == post.user.id){
+            
 
             let postId = comment.post;
 
@@ -75,3 +79,4 @@ module.exports.destroy = async function(req, res){
     }
     
 }
+
