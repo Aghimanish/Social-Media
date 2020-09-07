@@ -13,7 +13,7 @@ module.exports.home = async function(req, res){
                 path:'user'
             },
             populate:{
-                path:'Likes'
+                path:'likes'
             }
         }).populate('likes');
 

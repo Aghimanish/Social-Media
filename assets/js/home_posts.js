@@ -1,3 +1,4 @@
+        
 {
     //method to submit the form data for new post using AJAX
     let createPost = function(){
@@ -11,7 +12,8 @@
                 url: '/posts/create',
                 data: newPostForm.serialize(),
                 success: function(data){
-                    let newPost = newPostDom(data.data.post);
+                    console.log(data);
+                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
 
@@ -19,7 +21,7 @@
                     new PostComments(data.data.post._id);
 
                     // enable the functionality of the toggle like button on the new post
-                    new ToggleLike($('.toggle-like-button', newPost));
+                    new ToggleLike($(' .toggle-like-button', newPost));
                     
                     new Noty({
                         theme: 'relax',
@@ -45,11 +47,12 @@
                     <p>
                         
                         <small>
-                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }">X</a>
+                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }"></a>
                         </small>
                        
                         ${ post.content }
                         <br>
+                        
                         <small>
                         ${ post.user.name }
                         </small>
@@ -61,7 +64,7 @@
                         </small>
                     </p>
                     <div class="post-comments">
-                        
+                         
                             <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">
                                 <input type="text" name="content" placeholder="Type Here to add comment..." required>
                                 <input type="hidden" name="post" value="${ post._id }" >
@@ -76,7 +79,7 @@
                         </div>
                     </div>
                     
-                </li>`)
+                </li> `)
     }
 
 

@@ -12,7 +12,7 @@ module.exports.toogleLike = async function(req, res){
         if(req.query.type == 'Post'){
             likeable = await Post.findById(req.query.id).populate('likes');
         }else{
-            likeable = await await Comment.findById(req.query.id).populate('likes');
+            likeable = await Comment.findById(req.query.id).populate('likes');
         }
 
         //check if a like already exists
