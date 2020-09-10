@@ -56,9 +56,8 @@ module.exports.destroy = async function(req, res){
     try{
         let comment = await Comment.findById(req.params.id);
         
-        if (comment.user == req.user.id || req.user.id == post.user.id){
+        if (post.user.id == req.user.id || comment.user.id == req.user.id ){
             
-
             let postId = comment.post;
 
             comment.remove();
