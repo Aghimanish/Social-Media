@@ -8,5 +8,9 @@
   "css/post.css": "css/post-28a28af27a.css",
   "css/sign-in.css": "css/sign-in-89c683375f.css",
   "css/sign-up.css": "css/sign-up-312f1b6490.css",
-  "css/user_profile.css": "css/user_profile-1d7b5fc14e.css"
+  "css/user_profile.css": "css/user_profile-1d7b5fc14e.css",
+  "js/chat_engine.js": "js/chat_engine-62f1612710.js",
+  "js/home_post_comments.js": "js/home_post_comments-bb6531bb93.js",
+  "js/home_posts.js": "js/home_posts-33bb9020d3.js",
+  "js/toggle_likes.js": "js/toggle_likes-6888e2eea1.js"
 }
