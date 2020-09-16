@@ -21,7 +21,6 @@ module.exports.create = async function(req, res){
             post.save();
 
             comment = await comment.populate('user', 'name email').execPopulate();
-            // commentsMailer.newComment(comment);
             let job = queue.create('emails', comment).save(function(err){
                 if(err){console.log("Error in creating a queue", err); return;}
                 
@@ -56,7 +55,7 @@ module.exports.destroy = async function(req, res){
     try{
         let comment = await Comment.findById(req.params.id);
         
-        if (post.user.id == req.user.id || comment.user.id == req.user.id ){
+        if (comment.user == req.user.id ){
             
             let postId = comment.post;
 

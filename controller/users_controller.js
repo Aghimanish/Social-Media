@@ -10,6 +10,11 @@ module.exports.profile = function(req, res){
         });
     });
 }
+// where is err??
+// adding comment refreshing page 
+// delete to comment is also not showing
+
+// ok bro
 
 module.exports.update = async function(req, res){
     if(req.user.id == req.params.id){

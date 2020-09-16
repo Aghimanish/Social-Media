@@ -1,6 +1,5 @@
-        
-{
-    //method to submit the form data for new post using AJAX
+{   
+    // method to submit the form data for new post using AJAX
     let createPost = function(){
         let newPostForm = $('#new-post-form');
 
@@ -12,17 +11,16 @@
                 url: '/posts/create',
                 data: newPostForm.serialize(),
                 success: function(data){
-                    console.log(data);
-                     let newPost = newPostDom(data.data.post);
+                    let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
 
                     // call the create comment class
                     new PostComments(data.data.post._id);
 
-                    // enable the functionality of the toggle like button on the new post
+                    // CHANGE :: enable the functionality of the toggle like button on the new post
                     new ToggleLike($(' .toggle-like-button', newPost));
-                    
+
                     new Noty({
                         theme: 'relax',
                         text: "Post published!",
@@ -42,44 +40,52 @@
 
     // method to create a post in DOM
     let newPostDom = function(post){
-        // show the count of zero likes on this post
-        return $(`<li id="post-${post._id}">
-                    <p>
-                        
-                        <small>
-                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }"></a>
-                        </small>
-                       
-                        ${ post.content }
-                        <br>
-                        
-                        <small>
-                        ${ post.user.name }
-                        </small>
-                        <br>
-                        <small>
-                            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
-                                0 Likes
-                            </a>
-                        </small>
-                    </p>
-                    <div class="post-comments">
-                         
-                            <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">
-                                <input type="text" name="content" placeholder="Type Here to add comment..." required>
-                                <input type="hidden" name="post" value="${ post._id }" >
-                                <input type="submit" value="Add Comment">
-                            </form>
-               
-                
-                        <div class="post-comments-list">
-                            <ul id="post-comments-${ post._id }">
-                                
-                            </ul>
-                        </div>
-                    </div>
+        // CHANGE :: show the count of zero likes on this post
+        return $(`<section id="post">
+        <li id="post-${ post._id }">
+            <p>
+                <small class="content">
+                    ${ post.content }
+                </small>   
+                <br >
+                <small class="author">
+                    ${post.user.name }
+                </small>
+                <br>
+        
+                <small>
                     
-                </li> `)
+                        <small>
+                            <a class="delete-post-button" href="/posts/destroy/${ post._id }"><i class="fas fa-trash-alt"></i>DELETE</a>
+                        </small>
+
+                        <a class="toggle-like-button" data-likes="${ post.likes.length }" href="/likes/toggle/?id=${ post._id }&type=Post">
+                            <i class="far fa-thumbs-up"></i>${ post.likes.length } Likes
+                        </a>
+                     
+                        ${ post.likes.length } Likes
+                    
+                </small>
+            </p>
+            <div class="post-comments">
+                
+                    <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">
+                        <input type="text" class="comment-bar" name="content" placeholder="Type Here to add comment..." required>
+                        <input type="hidden" name="post" value="${ post._id }" >
+                        <input type="submit" class="btn btn-danger comment-submit" value="Add Comment">
+                    </form>
+             
+        
+                <div class="post-comments-list">
+                    <ul id="post-comments-${ post._id }">
+                        <h6>Comments</h6>
+                            
+                    </ul>
+                </div>
+            </div>
+        
+        </li>
+        </section>`)
     }
 
 
@@ -131,3 +137,4 @@
     createPost();
     convertPostsToAjax();
 }
+
